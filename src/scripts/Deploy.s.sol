@@ -26,16 +26,32 @@ contract Deploy is Script {
 
         // deploy modules
         Instructions instr = new Instructions(kernel);
+        console2.log("Instructions module deployed at:", address(instr));
+
         Token token = new Token(kernel);
+        console2.log("Token module deployed at:", address(token));
+
         Treasury treasury = new Treasury(kernel);
+        console2.log("Treasury module deployed at:", address(treasury));
+
         Authorization auth = new Authorization(kernel);
+        console2.log("auth module deployed at:", address(auth));
+
         Random random = new Random(kernel);
+        console2.log("Instructions module deployed at:", address(random));
 
         // deploy policies
         Governance gov = new Governance(kernel);
+        console2.log("Governance policy deployed at:", address(gov));
+
         TreasuryYieldManager yieldMgr = new TreasuryYieldManager(kernel);
+        console2.log("Yield Manager policy deployed at:", address(yieldMgr));
+
         Faucet faucet = new Faucet(kernel);
+        console2.log("Faucet policy deployed at:", address(faucet));
+
         CoinflipCasino flip = new CoinflipCasino(kernel);
+        console2.log("Coinflip policy deployed at:", address(flip));
 
         // install modules
         kernel.executeAction(Actions.InstallModule, address(instr));
