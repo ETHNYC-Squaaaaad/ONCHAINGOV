@@ -50,6 +50,8 @@ contract Deploy is Script {
         kernel.executeAction(Actions.ApprovePolicy, address(faucet));
         kernel.executeAction(Actions.ApprovePolicy, address(flip));
 
+        token.approve(address(gov), type(uint256).max);
+
         // transfer executive powers to governance
         kernel.executeAction(Actions.ChangeExecutor, address(gov));
 
