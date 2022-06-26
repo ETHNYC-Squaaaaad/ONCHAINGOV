@@ -12,15 +12,9 @@ import {Treasury} from "src/modules/TRSRY.sol";
 import {Random} from "src/modules/RANDM.sol";
 
 import {Governance} from "src/policies/Governance.sol";
-<<<<<<< HEAD
 import {CoinflipCasino} from "src/policies/CoinflipCasino.sol";
 import {TreasuryYieldManager} from "src/policies/TreasuryYieldManager.sol";
 import {Faucet} from "src/policies/Faucet.sol";
-=======
-import {TreasuryYieldManager} from "src/policies/TreasuryYieldManager.sol";
-import {Faucet} from "src/policies/Faucet.sol";
-import {CoinflipCasino} from "src/policies/CoinflipCasino.sol";
->>>>>>> 498190bbe67ba0cef90bfa33f1cb378e22284a06
 
 contract Deploy is Script {
     function run() external {
