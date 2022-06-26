@@ -32,6 +32,9 @@ contract Deploy is Script {
 
         // deploy policies
         Governance gov = new Governance(kernel);
+        TreasuryYieldManager yieldMgr = new TreasuryYieldManager(kernel);
+        Faucet faucet = new Faucet(kernel);
+        CoinflipCasino flip = new CoinflipCasino(kernel);
 
         // install modules
         kernel.executeAction(Actions.InstallModule, address(instr));
@@ -42,6 +45,9 @@ contract Deploy is Script {
 
         // approve policies
         kernel.executeAction(Actions.ApprovePolicy, address(gov));
+        kernel.executeAction(Actions.ApprovePolicy, address(yieldMgr));
+        kernel.executeAction(Actions.ApprovePolicy, address(faucet));
+        kernel.executeAction(Actions.ApprovePolicy, address(flip));
 
         // transfer executive powers to governance
         kernel.executeAction(Actions.ChangeExecutor, address(gov));

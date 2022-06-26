@@ -26,6 +26,7 @@ contract TreasuryYieldManager is Policy, Auth {
 
     function configureReads() external override {
         TRSRY = Treasury(getModuleAddress("TRSRY"));
+        setAuthority(Authority(getModuleAddress("AUTHR")));
     }
 
     function requestRoles()
