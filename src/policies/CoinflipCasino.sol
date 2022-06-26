@@ -39,7 +39,7 @@ contract CoinflipCasino is Policy {
     /////////////////////////////////////////////////////////////////////////////////
 
     function flip() external {
-        if (RANDM.generateRandom(1) % 2 == 1) {
+        if (RANDM.generateRandom(1) == 1) {
             TOKEN.mintTo(msg.sender, 1);
         }
     }

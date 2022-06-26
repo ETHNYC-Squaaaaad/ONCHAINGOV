@@ -130,7 +130,10 @@ contract Governance is Policy {
     }
 
     function getActiveProposalTuple() public view returns (uint256, uint256) {
-      return (activeProposal.instructionsId, activeProposal.activationTimestamp);
+        return (
+            activeProposal.instructionsId,
+            activeProposal.activationTimestamp
+        );
     }
 
     function submitProposal(
@@ -216,43 +219,36 @@ contract Governance is Policy {
     }
 
     function vote(bool for_) external {
+        ActivatedProposal memory prop = activeProposal;
+
         // get the amount of user votes
         uint256 userVotes = TOKEN.balanceOf(msg.sender);
 
         // ensure an active proposal exists
-        if (activeProposal.instructionsId == 0) {
+        if (prop.instructionsId == 0) {
             revert NoActiveProposalDetected();
         }
 
         // ensure the user has no pre-existing votes on the proposal
-        if (
-            userVotesForProposal[activeProposal.instructionsId][msg.sender] > 0
-        ) {
+        if (userVotesForProposal[prop.instructionsId][msg.sender] > 0) {
             revert UserAlreadyVoted();
         }
 
         // record the votes
         if (for_) {
-            yesVotesForProposal[activeProposal.instructionsId] += userVotes;
-        } else if (!for_) {
-            noVotesForProposal[activeProposal.instructionsId] += userVotes;
+            yesVotesForProposal[prop.instructionsId] += userVotes;
+        } else {
+            noVotesForProposal[prop.instructionsId] += userVotes;
         }
 
         // record that the user has casted votes
-        userVotesForProposal[activeProposal.instructionsId][
-            msg.sender
-        ] = userVotes;
+        userVotesForProposal[prop.instructionsId][msg.sender] = userVotes;
 
         // transfer voting tokens to contract
         TOKEN.transferFrom(msg.sender, address(this), userVotes);
 
         // emit the corresponding event
-        emit WalletVoted(
-            activeProposal.instructionsId,
-            msg.sender,
-            for_,
-            userVotes
-        );
+        emit WalletVoted(prop.instructionsId, msg.sender, for_, userVotes);
     }
 
     function executeProposal() external {

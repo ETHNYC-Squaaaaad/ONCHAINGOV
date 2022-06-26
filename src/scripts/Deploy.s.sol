@@ -9,11 +9,14 @@ import {Instructions} from "src/modules/INSTR.sol";
 import {Token} from "src/modules/TOKEN.sol";
 import {Authorization} from "src/modules/AUTHR.sol";
 import {Treasury} from "src/modules/TRSRY.sol";
+import {Random} from "src/modules/RANDM.sol";
 
 import {Governance} from "src/policies/Governance.sol";
+import {TreasuryYieldManager} from "src/policies/TreasuryYieldManager.sol";
+import {Faucet} from "src/policies/Faucet.sol";
+import {CoinflipCasino} from "src/policies/CoinflipCasino.sol";
 
 contract Deploy is Script {
-
     function run() external {
         vm.startBroadcast();
 
@@ -27,7 +30,6 @@ contract Deploy is Script {
         Treasury treasury = new Treasury(kernel);
         Authorization auth = new Authorization(kernel);
 
-
         // deploy policies
         Governance gov = new Governance(kernel);
 
@@ -35,6 +37,7 @@ contract Deploy is Script {
         kernel.executeAction(Actions.InstallModule, address(instr));
         kernel.executeAction(Actions.InstallModule, address(token));
         kernel.executeAction(Actions.InstallModule, address(treasury));
+        kernel.executeAction(Actions.InstallModule, address(auth));
         kernel.executeAction(Actions.InstallModule, address(auth));
 
         // approve policies
