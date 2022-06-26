@@ -55,34 +55,6 @@ contract SeedData is Script {
         // approve votes
         token.approve(address(gov), type(uint256).max);
 
-        // // deploy kernel
-        // Kernel kernel = new Kernel();
-        // console2.log("Kernel deployed at:", address(kernel));
-
-        // // deploy modules
-        // Instructions instr = new Instructions(kernel);
-        // Token token = new Token(kernel);
-        // Treasury treasury = new Treasury(kernel);
-        // Authorization auth = new Authorization(kernel);
-        // Faucet faucet = new Faucet(kernel);
-
-
-        // // deploy policies
-        // Governance gov = new Governance(kernel);
-
-        // // install modules
-        // kernel.executeAction(Actions.InstallModule, address(instr));
-        // kernel.executeAction(Actions.InstallModule, address(token));
-        // kernel.executeAction(Actions.InstallModule, address(treasury));
-        // kernel.executeAction(Actions.InstallModule, address(auth));
-
-        // // approve policies
-        // kernel.executeAction(Actions.ApprovePolicy, address(gov));
-        // kernel.executeAction(Actions.ApprovePolicy, address(faucet));
-
-        // // transfer executive powers to governance
-        // kernel.executeAction(Actions.ChangeExecutor, address(gov));
-
         // SEED DATA IS HERE
 
         // create new token module

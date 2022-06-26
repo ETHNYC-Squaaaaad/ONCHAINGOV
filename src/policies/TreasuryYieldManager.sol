@@ -17,7 +17,7 @@ contract TreasuryYieldManager is Policy, Auth {
     Treasury public TRSRY;
 
     // Shares allocated to vault
-    mapping(ERC20 => mapping(ERC4626 => uint256)) allocatedTo;
+    mapping(ERC20 => mapping(ERC4626 => uint256)) public allocatedTo;
 
     constructor(Kernel kernel_)
         Policy(kernel_)
