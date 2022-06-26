@@ -73,6 +73,8 @@ contract Treasury is Module {
         roles[2] = DEBT_ADMIN;
     }
 
+    function INIT() external override {}
+
     function getReserveBalance(ERC20 token_) external view returns (uint256) {
         return token_.balanceOf(address(this)) + totalDebt[token_];
     }

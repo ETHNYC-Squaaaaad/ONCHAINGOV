@@ -31,7 +31,7 @@ contract CoinflipCasino is Policy {
         returns (Kernel.Role[] memory roles)
     {
         roles = new Kernel.Role[](1);
-        roles[0] = TOKEN.ISSUER;
+        roles[0] = TOKEN.ISSUER();
     }
 
     /////////////////////////////////////////////////////////////////////////////////

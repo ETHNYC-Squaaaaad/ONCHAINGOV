@@ -46,7 +46,6 @@ struct ActivatedProposal {
 }
 
 contract Governance is Policy {
-
     /////////////////////////////////////////////////////////////////////////////////
     //                         Kernel Policy Configuration                         //
     /////////////////////////////////////////////////////////////////////////////////
@@ -183,9 +182,6 @@ contract Governance is Policy {
     }
 
     function activateProposal(uint256 instructionsId_) external {
-        // get the proposal to be activated
-        ProposalMetadata memory proposal = getProposalMetadata[instructionsId_];
-
         // require endorsements from at least 20% of the total outstanding governance power
         if (
             (totalEndorsementsForProposal[instructionsId_] * 5) <

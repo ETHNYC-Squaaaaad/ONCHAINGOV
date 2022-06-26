@@ -1,16 +1,9 @@
 // SPDX-License-Identifier: AGPL-3.0-only
-
-// [RANDM] The Random Module generates random numbers using Boba's native RNG
-
 pragma solidity ^0.8.13;
 
-import {Kernel, Module, Actions, Instruction} from "src/Kernel.sol";
+import {Kernel, Module} from "src/Kernel.sol";
 
-error INSTR_InstructionsCannotBeEmpty();
-error INSTR_InvalidChangeExecutorAction();
-error INSTR_InvalidTargetNotAContract();
-error INSTR_InvalidModuleKeycode();
-
+// [RANDM] The Random Module generates random numbers using Boba's native RNG
 contract Random is Module {
     /////////////////////////////////////////////////////////////////////////////////
     //                         Kernel Module Configuration                         //
