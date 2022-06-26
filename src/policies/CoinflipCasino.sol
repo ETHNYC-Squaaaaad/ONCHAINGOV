@@ -1,0 +1,47 @@
+// SPDX-License-Identifier: AGPL-3.0-only
+
+// The Proposal Policy submits & activates instructions in a INSTR module
+
+pragma solidity ^0.8.13;
+
+import {RANDM} from "src/modules/RANDM.sol";
+import {Kernel, Policy} from "src/Kernel.sol";
+
+
+contract CoinflipCasino is Policy {
+
+    /////////////////////////////////////////////////////////////////////////////////
+    //                         Kernel Policy Configuration                         //
+    /////////////////////////////////////////////////////////////////////////////////
+
+    Random public RANDM;
+
+    constructor(Kernel kernel_) Policy(kernel_) {}
+
+    function configureReads() external override {
+        RANDM = Token(getModuleAddress("RANDM"));
+        TOKEN = Token(getModuleAddress("TOKEN"));
+    }
+
+    function requestRoles()
+        external
+        view
+        override
+        onlyKernel
+        returns (Kernel.Role[] memory roles)
+    {
+        roles = new Kernel.Role[](1);
+        roles[0] = TOKEN.ISSUER;
+    }
+
+
+    /////////////////////////////////////////////////////////////////////////////////
+    //                             Policy Variables                                //
+    /////////////////////////////////////////////////////////////////////////////////
+
+    function flip() external {
+      if (RANDM.generateRandom(1) == 1) {
+        TOKEN.mintTo(msg.sender, 1);
+      }
+    }
+}

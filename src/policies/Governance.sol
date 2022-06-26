@@ -186,16 +186,6 @@ contract Governance is Policy {
         // get the proposal to be activated
         ProposalMetadata memory proposal = getProposalMetadata[instructionsId_];
 
-        // only allow the proposer to activate their proposal
-        if (msg.sender != proposal.proposer) {
-            revert NotAuthorizedToActivateProposal();
-        }
-
-        // proposals must be activated within 2 weeks of submission or they expire
-        if (block.timestamp > proposal.submissionTimestamp + 2 weeks) {
-            revert SubmittedProposalHasExpired();
-        }
-
         // require endorsements from at least 20% of the total outstanding governance power
         if (
             (totalEndorsementsForProposal[instructionsId_] * 5) <
