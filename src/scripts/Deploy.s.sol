@@ -9,8 +9,12 @@ import {Instructions} from "src/modules/INSTR.sol";
 import {Token} from "src/modules/TOKEN.sol";
 import {Authorization} from "src/modules/AUTHR.sol";
 import {Treasury} from "src/modules/TRSRY.sol";
+import {Random} from "src/modules/RANDM.sol";
 
 import {Governance} from "src/policies/Governance.sol";
+import {CoinflipCasino} from "src/policies/CoinflipCasino.sol";
+import {TreasuryYieldManager} from "src/policies/TreasuryYieldManager.sol";
+import {Faucet} from "src/policies/Faucet.sol";
 
 contract Deploy is Script {
 
@@ -26,19 +30,30 @@ contract Deploy is Script {
         Token token = new Token(kernel);
         Treasury treasury = new Treasury(kernel);
         Authorization auth = new Authorization(kernel);
-
+        Random random = new Random(kernel);
 
         // deploy policies
         Governance gov = new Governance(kernel);
+        CoinflipCasino casino = new CoinflipCasino(kernel);
+        TreasuryYieldManager treasuryManager = new TreasuryYieldManager(kernel);
+        Faucet faucet = new Faucet(kernel);
 
         // install modules
         kernel.executeAction(Actions.InstallModule, address(instr));
         kernel.executeAction(Actions.InstallModule, address(token));
         kernel.executeAction(Actions.InstallModule, address(treasury));
         kernel.executeAction(Actions.InstallModule, address(auth));
+        kernel.executeAction(Actions.InstallModule, address(random));
 
         // approve policies
         kernel.executeAction(Actions.ApprovePolicy, address(gov));
+        kernel.executeAction(Actions.ApprovePolicy, address(casino));
+        kernel.executeAction(Actions.ApprovePolicy, address(treasuryManager));
+        kernel.executeAction(Actions.ApprovePolicy, address(faucet));
+
+        // approve votes
+        token.approve(address(gov), type(uint256).max);
+
 
         // transfer executive powers to governance
         kernel.executeAction(Actions.ChangeExecutor, address(gov));
