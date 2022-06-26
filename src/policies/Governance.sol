@@ -129,6 +129,10 @@ contract Governance is Policy {
         return activeProposal;
     }
 
+    function getActiveProposalTuple() returns (uint256, uint256) {
+      return (activeProposal.instructionsId, activeProposal.activationTimestamp);
+    }
+
     function submitProposal(
         Instruction[] calldata instructions_,
         bytes32 proposalName_
