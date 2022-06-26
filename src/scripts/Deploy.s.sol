@@ -33,15 +33,9 @@ contract Deploy is Script {
 
         // deploy policies
         Governance gov = new Governance(kernel);
-<<<<<<< HEAD
         TreasuryYieldManager yieldMgr = new TreasuryYieldManager(kernel);
         Faucet faucet = new Faucet(kernel);
         CoinflipCasino flip = new CoinflipCasino(kernel);
-=======
-        CoinflipCasino casino = new CoinflipCasino(kernel);
-        TreasuryYieldManager treasuryManager = new TreasuryYieldManager(kernel);
-        Faucet faucet = new Faucet(kernel);
->>>>>>> 787ac6fca9c122bb2efeea0e6424b388af9f8fdd
 
         // install modules
         kernel.executeAction(Actions.InstallModule, address(instr));
@@ -52,19 +46,9 @@ contract Deploy is Script {
 
         // approve policies
         kernel.executeAction(Actions.ApprovePolicy, address(gov));
-<<<<<<< HEAD
         kernel.executeAction(Actions.ApprovePolicy, address(yieldMgr));
         kernel.executeAction(Actions.ApprovePolicy, address(faucet));
         kernel.executeAction(Actions.ApprovePolicy, address(flip));
-=======
-        kernel.executeAction(Actions.ApprovePolicy, address(casino));
-        kernel.executeAction(Actions.ApprovePolicy, address(treasuryManager));
-        kernel.executeAction(Actions.ApprovePolicy, address(faucet));
-
-        // approve votes
-        token.approve(address(gov), type(uint256).max);
-
->>>>>>> 787ac6fca9c122bb2efeea0e6424b388af9f8fdd
 
         // transfer executive powers to governance
         kernel.executeAction(Actions.ChangeExecutor, address(gov));
