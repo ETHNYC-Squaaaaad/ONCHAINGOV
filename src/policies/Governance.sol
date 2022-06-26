@@ -129,7 +129,7 @@ contract Governance is Policy {
         return activeProposal;
     }
 
-    function getActiveProposalTuple() returns (uint256, uint256) {
+    function getActiveProposalTuple() public view returns (uint256, uint256) {
       return (activeProposal.instructionsId, activeProposal.activationTimestamp);
     }
 
