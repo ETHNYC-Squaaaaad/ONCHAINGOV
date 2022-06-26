@@ -124,8 +124,6 @@ contract Treasury is Module {
         emit ApprovalRevoked(withdrawer_, tokens_);
     }
 
-    /// DEBT FUNCTIONS
-
     function getLoan(ERC20 token_, uint256 amount_) external onlyRole(DEBTOR) {
         uint256 approval = withdrawApproval[msg.sender][token_];
         if (approval < amount_) revert TRSRY_NotApproved();
@@ -204,7 +202,6 @@ contract Treasury is Module {
         emit DebtSet(token_, debtor_, reserveDebt[token_][debtor_]);
     }
 
-    // TODO Only permitted by governor. Used in case of emergency where loaned amounts cannot be repaid.
     function clearDebt(
         ERC20 token_,
         address debtor_,

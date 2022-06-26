@@ -12,7 +12,6 @@ error INSTR_InvalidTargetNotAContract();
 error INSTR_InvalidModuleKeycode();
 
 contract Random is Module {
-
     /////////////////////////////////////////////////////////////////////////////////
     //                         Kernel Module Configuration                         //
     /////////////////////////////////////////////////////////////////////////////////
@@ -24,18 +23,16 @@ contract Random is Module {
     }
 
     function ROLES() public pure override returns (Kernel.Role[] memory roles) {
-        roles = new Kernel.Role[](0);    
+        roles = new Kernel.Role[](0);
     }
 
     function INIT() external override {}
-
 
     /////////////////////////////////////////////////////////////////////////////////
     //                              Module Variables                               //
     /////////////////////////////////////////////////////////////////////////////////
 
-
-    function generateRandom(uint256 maxInt_) returns (uint256) {
+    function generateRandom(uint256 maxInt_) external pure returns (uint256) {
         // generate random from BOBA's rng system
         return 0;
     }

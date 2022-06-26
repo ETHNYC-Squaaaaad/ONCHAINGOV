@@ -4,22 +4,22 @@
 
 pragma solidity ^0.8.13;
 
-import {RANDM} from "src/modules/RANDM.sol";
+import {Token} from "src/modules/TOKEN.sol";
+import {Random} from "src/modules/RANDM.sol";
 import {Kernel, Policy} from "src/Kernel.sol";
 
-
 contract CoinflipCasino is Policy {
-
     /////////////////////////////////////////////////////////////////////////////////
     //                         Kernel Policy Configuration                         //
     /////////////////////////////////////////////////////////////////////////////////
 
     Random public RANDM;
+    Token public TOKEN;
 
     constructor(Kernel kernel_) Policy(kernel_) {}
 
     function configureReads() external override {
-        RANDM = Token(getModuleAddress("RANDM"));
+        RANDM = Random(getModuleAddress("RANDM"));
         TOKEN = Token(getModuleAddress("TOKEN"));
     }
 
@@ -34,14 +34,13 @@ contract CoinflipCasino is Policy {
         roles[0] = TOKEN.ISSUER;
     }
 
-
     /////////////////////////////////////////////////////////////////////////////////
     //                             Policy Variables                                //
     /////////////////////////////////////////////////////////////////////////////////
 
     function flip() external {
-      if (RANDM.generateRandom(1) == 1) {
-        TOKEN.mintTo(msg.sender, 1);
-      }
+        if (RANDM.generateRandom(1) % 2 == 1) {
+            TOKEN.mintTo(msg.sender, 1);
+        }
     }
 }
